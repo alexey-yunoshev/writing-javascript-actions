@@ -28,5 +28,5 @@ jobs:
               repo: context.repo.repo,
               owner: context.repo.owner,
               title: "whatevcs",
-              body: require("@actions/core").getInput("joke"),
+              body: core.getInput("joke"),
             })
