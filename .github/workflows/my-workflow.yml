@@ -19,7 +19,14 @@ jobs:
         id: jokes
 
       - name: create-issue
-        uses: ./.github/actions/issue-maker
+        uses: actions/github-script@0.9.0
         with:
-          repo-token: ${{secrets.GITHUB_TOKEN}}
           joke: ${{steps.jokes.outputs.joke-output}}
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.create({
+              repo: context.repo.repo,
+              owner: context.repo.owner,
+              title: "whatevcs",
+              body: require("@actions/core").getInput("joke"),
+            })
